@@ -1,0 +1,44 @@
+Cluster Access
+Mac
+Source https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
+
+# download binary
+curl -o kubectl [<https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/darwin/amd64/kubectl>](<https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/darwin/amd64/kubectl>)
+# verify downloaded binary
+curl -o kubectl.sha256 [<https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/darwin/amd64/kubectl.sha256>](<https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/darwin/amd64/kubectl.sha256>)
+# checksum
+openssl sha1 -sha256 kubectl
+# update permissions
+chmod +x ./kubectl
+# copy binary to ~/bin/
+mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+# add ~/bin to path
+echo 'export PATH=$PATH:$HOME/bin' >> ~/.bash_profile
+# confirm
+kubectl version --short --client
+Windows
+Source https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
+
+Download the kubectl binary
+# open powershell termianl and exectute the following
+
+# download binary
+curl -o kubectl.exe <https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/windows/amd64/kubectl.exe>
+# verify downloaded binary
+curl -o kubectl.exe.sha256 <https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/windows/amd64/kubectl.exe.sha256>
+# get the hash of binary
+# Compare the generated SHA-256 sum in the command output against your downloaded SHA-256 file. The two should match, although the PowerShell output will be uppercase.
+Get-FileHash kubectl.exe
+Copy to directory included in PATH. If one does not already exist, follow steps below:
+
+Create a new directory for your command line binaries, such as C:\\bin.
+
+Copy the kubectl.exe binary to your new directory.
+
+Edit your user or system PATH environment variable to add the new directory to your PATH.
+
+Close your PowerShell terminal and open a new one to pick up the new PATH variable.
+
+Confirm install
+
+kubectl version --short --client
