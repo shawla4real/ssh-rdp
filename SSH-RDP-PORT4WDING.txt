@@ -1,0 +1,50 @@
+#Create Bastion Linux server in public subnet..
+NOTE :Public IP address
+set the Security Group rules
+Inbound rules
+open SSH -22  the source will be Cardinal IP address, and/or Vendor IP address(es)  
+Outbound rules
+open RDP-3389 the Destination will be the Private server IP 
+
+
+#Create Private server on windows platform
+set the Security Group rules
+Inbound rules
+RDP 3389 the source will be the Security Group ID of the Bastion
+
+User name in windows server by default is Administrator
+Password ::: see below on guide to get the password
+
+Right click on the instance ID
+click on Security,
+Click on Get Windows Password
+upload your pem.key
+click Decrypt password
+save password, will be used in port forwarding.
+
+#Port Forwarding steps
+
+Open Putty
+session : Host Name : ec2-user@publicipaddress port :22
+connection: click on SSH,
+                    click on Auth: Enable Allow agent forwarding, Upload the private key file.
+                    click on Tunnel: Source port: 127.0.0.1:3340(Localhost and any random port) Destination: privateIP:3389
+                    Enable Local Ports accept connections from other hosts
+
+go back to session, give it a name and save.
+open your session.....
+
+
+This will start up the connection in putty, right click and check the event log.
+this will let you know if the forwarding was successful.
+
+open Remote Desktop connection from start button
+Computer: 127.0.0.1:3340 (this is the source port in putty tunnel)
+user : Administrator
+password: Enter the Encrypted password from the private instance
+
+After logging in
+Create a user in the windows server
+add password
+grant Administrator privilege's,
+log out and log in with new user credentials
